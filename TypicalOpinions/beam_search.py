@@ -50,7 +50,7 @@ def run_beam_search(sess, model, vocab, batch):
     while steps < FLAGS.max_dec_steps and len(results) < FLAGS.beam_size:
         latest_tokens = [h.latest_token for h in hyps]
         latest_tokens = [t if t in range(vocab.size()) else vocab.word2id(data.UNKNOWN_TOKEN) for t in
-                         latest_tokens]  # change any in-article temporary OOV ids to [UNK] id, so that we can lookup word embeddings
+                         latest_tokens]
         states = [h.state for h in hyps]
         prev_coverage = [h.coverage for h in hyps]
         (topk_ids, topk_log_probs, new_states, attn_dists, p_gens, new_coverage) = model.decode_onestep(sess=sess,
